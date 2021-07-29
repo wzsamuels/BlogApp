@@ -1,7 +1,7 @@
-import React, {useEffect, useRef} from "react";
+import React, { useEffect, useRef } from "react";
 import { useInput } from "./lib/hooks";
-import {fetchPost, useFetch} from "./lib/usefetch";
-import {usePosts} from "./PostProvider";
+import { fetchPost } from "./lib/usefetch";
+import { usePosts } from "./PostProvider";
 
 export default function AddPostForm({onFormClose}) {
   const [titleProps, resetTitle] = useInput("");
@@ -34,7 +34,7 @@ export default function AddPostForm({onFormClose}) {
 
   // The post POST form
   return (
-      <div className="container box rounded shadow p-3 mb-5 rounded">
+      <div className="box shadow p-3 mb-5 rounded">
           <form method="POST" id="post-form" onSubmit={submit}>
               <div className="mb-3">
                   <label className="form-label">Title</label>
@@ -52,28 +52,3 @@ export default function AddPostForm({onFormClose}) {
       </div>
   );
 }
-/*
-    form.append('title', title);
-    form.append('text', text);
-    //form.append('author', author);
-    //useFetch('api/posts', "POST", form)
-    // TODO: Make useFetch work here for POST request
-    const csrftoken = getCookie('csrftoken');
-    fetch('api/posts/', {
-        method: "POST",
-        body: JSON.stringify({ title, text }),
-        mode: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': csrftoken
-        },
-    })
-    .then(response => response.json())
-    .then(result => {
-      console.log('Success:', result);
-
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
- */
