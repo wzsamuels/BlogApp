@@ -2,8 +2,9 @@ import React, { useEffect, useRef } from "react";
 import { useInput } from "./lib/hooks";
 import { fetchPost } from "./lib/usefetch";
 import { usePosts } from "./PostProvider";
+import {Box, Button } from "@material-ui/core";
 
-export default function AddPostForm({onFormClose}) {
+export default function AddPostForm({onCloseForm}) {
   const [titleProps, resetTitle] = useInput("");
   const [textProps, resetText] = useInput("");
   const { addPost } = usePosts();
@@ -19,7 +20,7 @@ export default function AddPostForm({onFormClose}) {
   // On submitting the form
   const submit = e => {
     e.preventDefault();
-    onFormClose();
+    onCloseForm();
     fetchPost('http://localhost:3000/blog/api/add', {title: titleProps.value, text: textProps.value})
       .then(result => {
         if(result) {
@@ -34,21 +35,25 @@ export default function AddPostForm({onFormClose}) {
 
   // The post POST form
   return (
-      <div className="box shadow p-3 mb-5 rounded">
-          <form method="POST" id="post-form" onSubmit={submit}>
-              <div className="mb-3">
-                  <label className="form-label">Title</label>
-                  <input {...titleProps} type="text" ref={inputElement} required placeholder="Say something..."
-                      className="form-control" maxLength="50"/>
-              </div>
-               <div className="mb-3">
-                  <label className="form-label">Text</label>
-                  <textarea {...textProps} id="post-text" required
-                      placeholder="Say something..." />
-               </div>
-               <button  type="submit" className="button-submit">Submit</button>
-              <button className="button-cancel m-3" onClick={onFormClose}>Cancel</button>
-           </form>
-      </div>
+    <div className="box mb-5 p-3">
+      <form method="POST" id="post-form" onSubmit={submit}>
+        <div className="mb-3">
+            <label className="form-label">Title</label>
+            <input {...titleProps} type="text" ref={inputElement} required placeholder="Say something..."
+                className="form-control" maxLength="50"/>
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Text</label>
+          <textarea {...textProps} id="post-text" required
+                placeholder="Say something..." />
+        </div>
+        <Box component="div" display="inline">
+          <Button type="submit" variant="contained" color="primary">Submit</Button>
+        </Box>
+        <Box mx={3} component="div" display="inline">
+          <Button variant="contained" color="secondary" onClick={onCloseForm}>Cancel</Button>
+        </Box>
+       </form>
+    </div>
   );
 }
