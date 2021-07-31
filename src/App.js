@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AddPostForm from "./AddPostForm"
+import PostProvider from './PostProvider';
 import PostList from "./PostList";
 import './styles.scss'
 import { useSpring, animated } from 'react-spring';
@@ -7,6 +8,7 @@ import BottomAppBar from "./nav";
 import { ThemeProvider } from '@material-ui/styles';
 import Typography from "@material-ui/core/Typography";
 import { darkTheme} from "./material-styles"
+import { useStyles } from './material-styles';
 
 export default function App() {
   const [isFormVisible, setFormVisible] = useState(false);
@@ -24,11 +26,14 @@ export default function App() {
     console.log("Animation Ended");
   }
 
+  const classes = useStyles();
+
 
   return (
-    <div className="App">
-
-      <ThemeProvider theme={darkTheme}>
+    <>
+    <ThemeProvider theme={darkTheme}>
+    <PostProvider>
+      <div className="App">
         <Typography style={{marginTop: "5px", textAlign: "center"}} variant="h3" color="inherit" noWrap>
           Bloggington
         </Typography>
@@ -39,7 +44,7 @@ export default function App() {
               transform: x
                 .to({
                   range: [0, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 10],
-                  output: [0, .2, .4, .6, .8, 1.2]
+                  output: [0, .2, .4, .6, .8, 1]
                 })
                 .to(x => `scale(${x})`),
                 onRest: () => onAnimationEnd(),
@@ -52,7 +57,9 @@ export default function App() {
         <br/>
         <PostList/>
         <BottomAppBar onAddClick={openForm}/>
+        </div>
+      </PostProvider>
       </ThemeProvider>
-    </div>
+      </>
   );
 }//<button style={{position: "fixed", bottom: "30px", right: "20px"}} className="circle" onClick={setFormVisible}>+</button>

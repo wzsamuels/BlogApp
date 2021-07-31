@@ -42,7 +42,7 @@ function PostBody({ text = "Empty", created = new Date() }) {
       </div>
       <div className="mt-2">
         Posted {parseDateTime(created)}
-        <IconButton><ThumbUp/></IconButton>
+        <IconButton color="secondary"><ThumbUp/></IconButton>
       </div>
     </>
   );

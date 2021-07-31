@@ -22,7 +22,9 @@ export const darkTheme = createTheme({
 });
 
 export const useStyles = makeStyles((theme) => ({
-
+  App: {
+    backgroundColor: '#121212',
+  },
   box : {
     display: 'flex',
     justifyContent: "space-between",
@@ -50,4 +52,4 @@ export const useStyles = makeStyles((theme) => ({
     right: 0,
     margin: '0 auto',
   },
-}));
+}), {index: 1});
